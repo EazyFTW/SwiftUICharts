@@ -18,7 +18,7 @@ extension CTBarChartDataProtocol where Self.CTStyle.Mark == BarMarkerType {
                 case .none:
                     EmptyView()
                 case .vertical(let colour, let style):
-                    MarkerFull(position: position)
+                    Vertical(position: position)
                         .stroke(colour, style: style)
                 case .full(let colour, let style):
                     MarkerFull(position: position)
