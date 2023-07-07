@@ -69,7 +69,7 @@ public struct ExtraLineData: Identifiable {
             case .minimumValue:
                 _lowestValue = self.getMinValue()
             case .minimumWithMaximum(of: let value):
-                _lowestValue = min(self.getMinValue(), value)
+                _lowestValue = value
             case .zero:
                 _lowestValue = 0
             }
@@ -90,7 +90,7 @@ public struct ExtraLineData: Identifiable {
             case .minimumValue:
                 return self.getMinValue()
             case .minimumWithMaximum(of: let value):
-                return min(self.getMinValue(), value)
+                return value
             case .zero:
                 return 0
             }
