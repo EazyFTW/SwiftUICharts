@@ -19,7 +19,7 @@ extension CTLineBarChartDataProtocol where Self: GetDataProtocol,
             case .minimumValue:
                 _lowestValue = self.dataSets.minValue()
             case .minimumWithMaximum(of: let value):
-                _lowestValue = min(self.dataSets.minValue(), value)
+                _lowestValue = value
             case .zero:
                 _lowestValue = 0
             }
@@ -41,7 +41,7 @@ extension CTLineBarChartDataProtocol where Self: GetDataProtocol,
             case .minimumValue:
                 return self.dataSets.minValue()
             case .minimumWithMaximum(of: let value):
-                return min(self.dataSets.minValue(), value)
+                return value
             case .zero:
                 return 0
             }
