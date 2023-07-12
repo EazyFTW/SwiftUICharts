@@ -196,7 +196,9 @@ extension LineChartData {
                 dp.legendTag = data.legendTitle
                 self.infoView.touchOverlayInfo.append(dp)
             }
-            touchedDataPointPublisher.send(dataSets.dataPoints[index])
+            if dataSets.dataPoints[index].value != dataSets.style.ignoreValue {
+                touchedDataPointPublisher.send(dataSets.dataPoints[index])
+            }
         }
     }
 }
