@@ -181,7 +181,7 @@ public final class RangedLineChartData: CTLineChartDataProtocol, GetDataProtocol
                 dataSets.dataPoints[index].legendTag = dataSets.legendTitle
                 self.infoView.touchOverlayInfo = [dataSets.dataPoints[index]]
             } else {
-                if dataSets.dataPoints[index].value != dataSets.dataPoints[index].value {
+                if dataSets.dataPoints[index].value != dataSets.style.ignoreValue {
                     dataSets.dataPoints[index].legendTag = dataSets.legendTitle
                     self.infoView.touchOverlayInfo = [dataSets.dataPoints[index]]
                 } else {

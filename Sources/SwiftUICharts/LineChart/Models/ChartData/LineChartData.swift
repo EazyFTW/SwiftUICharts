@@ -187,7 +187,7 @@ extension LineChartData {
                 } else {
                     dataSets.dataPoints[index].legendTag = dataSets.legendTitle
                     dataSets.dataPoints[index].ignoreMe = true
-                    self.infoView.touchOverlayInfo = [dataSets.dataPoints[index]]
+                    self.infoView.touchOverlayInfo = []
                 }
             }
             if let data = self.extraLineData,
