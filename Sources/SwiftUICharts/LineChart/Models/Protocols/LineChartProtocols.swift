@@ -64,7 +64,7 @@ public protocol CTLineStyle {
      
      The default is false.
      */
-    var ignoreZero: Bool { get set }
+    var ignoreValue: Double { get set }
 }
 
 /**

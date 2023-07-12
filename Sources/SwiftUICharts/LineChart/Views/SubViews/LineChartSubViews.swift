@@ -47,7 +47,7 @@ internal struct LineChartColourSubView<CD, DS>: View where CD: CTLineChartDataPr
                   isFilled: isFilled,
                   minValue: minValue,
                   range: range,
-                  ignoreZero: dataSet.style.ignoreZero)
+                  ignoreValue: dataSet.style.ignoreValue)
             .ifElse(isFilled, if: {
                 $0
                     .scale(y: animationValue, anchor: .bottom)
@@ -124,7 +124,7 @@ internal struct LineChartColoursSubView<CD, DS>: View where CD: CTLineChartDataP
                   isFilled: isFilled,
                   minValue: minValue,
                   range: range,
-                  ignoreZero: dataSet.style.ignoreZero)
+                  ignoreValue: dataSet.style.ignoreValue)
             .ifElse(isFilled, if: {
                 $0
                     .scale(y: animationValue, anchor: .bottom)
@@ -205,7 +205,7 @@ internal struct LineChartStopsSubView<CD, DS>: View where CD: CTLineChartDataPro
                   isFilled: isFilled,
                   minValue: minValue,
                   range: range,
-                  ignoreZero: dataSet.style.ignoreZero)
+                  ignoreValue: dataSet.style.ignoreValue)
             .ifElse(isFilled, if: {
                 $0
                     .scale(y: animationValue, anchor: .bottom)

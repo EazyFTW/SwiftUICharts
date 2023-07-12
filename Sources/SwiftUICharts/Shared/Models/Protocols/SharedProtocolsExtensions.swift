@@ -275,7 +275,7 @@ extension CTMultiBarChartDataSet where Self == StackedBarDataSet {
 extension CTSingleDataSetProtocol where Self.DataPoint: CTStandardDataPointProtocol & CTnotRanged,
                                         Self: CTLineChartDataSet {
     public func minValue() -> Double  {
-        if !self.style.ignoreZero {
+        if self.style.ignoreValue == -Double.infinity {
             return self.dataPoints
                 .map(\.value)
                 .min() ?? 0
@@ -292,7 +292,7 @@ extension CTMultiDataSetProtocol where Self.DataSet: CTLineChartDataSet,
                                        Self.DataSet.DataPoint: CTStandardDataPointProtocol {
     public func minValue() -> Double {
         dataSets.compactMap { dataSet in
-            if !dataSet.style.ignoreZero {
+            if dataSet.style.ignoreValue == -Double.infinity {
                 return  dataSet.dataPoints
                     .map(\.value)
                     .min()

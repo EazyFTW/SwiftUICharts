@@ -70,7 +70,7 @@ public struct RangedLineChart<ChartData>: View where ChartData: RangedLineChartD
                                             lineType: chartData.dataSets.style.lineType,
                                             minValue: chartData.minValue,
                                             range: chartData.range,
-                                            ignoreZero: chartData.dataSets.style.ignoreZero)
+                                            ignoreValue: chartData.dataSets.style.ignoreValue)
                         .fill(colour)
                     } else if chartData.dataSets.style.fillColour.colourType == .gradientColour,
                               let colours = chartData.dataSets.style.fillColour.colours,
@@ -81,7 +81,7 @@ public struct RangedLineChart<ChartData>: View where ChartData: RangedLineChartD
                                             lineType: chartData.dataSets.style.lineType,
                                             minValue: chartData.minValue,
                                             range: chartData.range,
-                                            ignoreZero: chartData.dataSets.style.ignoreZero)
+                                            ignoreValue: chartData.dataSets.style.ignoreValue)
                         .fill(LinearGradient(gradient: Gradient(colors: colours),
                                              startPoint: startPoint,
                                              endPoint: endPoint))
@@ -95,7 +95,7 @@ public struct RangedLineChart<ChartData>: View where ChartData: RangedLineChartD
                                             lineType: chartData.dataSets.style.lineType,
                                             minValue: chartData.minValue,
                                             range: chartData.range,
-                                            ignoreZero: chartData.dataSets.style.ignoreZero)
+                                            ignoreValue: chartData.dataSets.style.ignoreValue)
                         .fill(LinearGradient(gradient: Gradient(stops: stops),
                                              startPoint: startPoint,
                                              endPoint: endPoint))

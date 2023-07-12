@@ -266,7 +266,8 @@ extension Path {
         dataPoints: [DP],
         minValue: Double,
         range: Double,
-        isFilled: Bool
+        isFilled: Bool,
+        ignoreValue: Double
     ) -> Path {
         let x: CGFloat = rect.width / CGFloat(dataPoints.count - 1)
         let y: CGFloat = rect.height / CGFloat(range)
@@ -275,7 +276,7 @@ extension Path {
         if dataPoints.count >= 2 {
             
             findFirst: for index in 0 ..< dataPoints.count {
-                if dataPoints[index].value != 0 {
+                if dataPoints[index].value != ignoreValue {
                     let firstPoint = CGPoint(x: CGFloat(index) * x,
                                              y: (CGFloat(dataPoints[index].value - minValue) * -y) + rect.height)
                     path.move(to: firstPoint)
@@ -287,7 +288,7 @@ extension Path {
                 let nextPoint = CGPoint(x: CGFloat(index) * x,
                                         y: (CGFloat(dataPoints[index].value - minValue) * -y) + rect.height)
                 
-                if dataPoints[index].value != 0 && !dataPoints[index].ignoreMe {
+                if dataPoints[index].value != ignoreValue && !dataPoints[index].ignoreMe {
                     path.addLine(to: nextPoint)
                 }
             }
@@ -306,7 +307,8 @@ extension Path {
         dataPoints: [DP],
         minValue: Double,
         range: Double,
-        isFilled: Bool
+        isFilled: Bool,
+        ignoreValue: Double
     ) -> Path {
         let x: CGFloat = rect.width / CGFloat(dataPoints.count - 1)
         let y: CGFloat = rect.height / CGFloat(range)
@@ -315,7 +317,7 @@ extension Path {
         var firstPoint: CGPoint = .zero
         
         findFirst: for index in 0 ..< dataPoints.count {
-            if dataPoints[index].value != 0 {
+            if dataPoints[index].value != ignoreValue {
                 firstPoint = CGPoint(x: 0,
                                      y: (CGFloat(dataPoints[0].value - minValue) * -y) + rect.height)
                 path.move(to: firstPoint)
@@ -331,7 +333,7 @@ extension Path {
             let nextPoint = CGPoint(x: CGFloat(index) * x,
                                     y: (CGFloat(dataPoints[index].value - minValue) * -y) + rect.height)
             
-            if dataPoints[index].value != 0 && !dataPoints[index].ignoreMe {
+            if dataPoints[index].value != ignoreValue && !dataPoints[index].ignoreMe {
                 path.addCurve(to: nextPoint,
                               control1: CGPoint(x: previousPoint.x + (nextPoint.x - previousPoint.x) / 2,
                                                 y: previousPoint.y),
@@ -358,7 +360,8 @@ extension Path {
         dataPoints: [DP],
         minValue: Double,
         range: Double,
-        isFilled: Bool
+        isFilled: Bool,
+        ignoreValue: Double
     ) -> Path {
         let x: CGFloat = rect.width / CGFloat(dataPoints.count - 1)
         let y: CGFloat = rect.height / CGFloat(range)
@@ -368,7 +371,7 @@ extension Path {
             
             var newPoint = CGPoint(x: 0, y: 0)
             findFirst: for index in 0 ..< dataPoints.count {
-                if dataPoints[index].value != 0 {
+                if dataPoints[index].value != ignoreValue {
                     let firstPoint = CGPoint(x: CGFloat(index) * x,
                                              y: (CGFloat(dataPoints[index].value - minValue) * -y) + rect.height)
                     path.move(to: firstPoint)
@@ -385,7 +388,7 @@ extension Path {
                 let nextPoint = CGPoint(x: CGFloat(index) * x,
                                         y: (CGFloat(dataPoints[index].value - minValue) * -y) + rect.height)
                 
-                if dataPoints[index].value != 0 && !dataPoints[index].ignoreMe {
+                if dataPoints[index].value != ignoreValue && !dataPoints[index].ignoreMe {
                     path.addLine(to: nextStep)
                     path.addLine(to: nextPoint)
                     newPoint = nextPoint
@@ -406,7 +409,8 @@ extension Path {
         rect: CGRect,
         dataPoints: [DP],
         minValue: Double,
-        range: Double
+        range: Double,
+        ignoreValue: Double
     ) -> Path {
         let x: CGFloat = rect.width / CGFloat(dataPoints.count - 1)
         let y: CGFloat = rect.height / CGFloat(range)
@@ -422,7 +426,7 @@ extension Path {
             let nextPointUpper = CGPoint(x: CGFloat(indexUpper) * x,
                                          y: (CGFloat(dataPoints[indexUpper].upperValue - minValue) * -y) + rect.height)
             
-            if dataPoints[indexUpper].value != 0 {
+            if dataPoints[indexUpper].value != ignoreValue {
                 path.addLine(to: nextPointUpper)
             }
         }
@@ -432,7 +436,7 @@ extension Path {
             let nextPointLower = CGPoint(x: CGFloat(indexLower) * x,
                                          y: (CGFloat(dataPoints[indexLower].lowerValue - minValue) * -y) + rect.height)
             
-            if dataPoints[indexLower].value != 0 {
+            if dataPoints[indexLower].value != ignoreValue {
                 path.addLine(to: nextPointLower)
             }
         }
@@ -447,7 +451,8 @@ extension Path {
         rect: CGRect,
         dataPoints: [DP],
         minValue: Double,
-        range: Double
+        range: Double,
+        ignoreValue: Double
     ) -> Path {
         let x: CGFloat = rect.width / CGFloat(dataPoints.count - 1)
         let y: CGFloat = rect.height / CGFloat(range)
@@ -466,7 +471,7 @@ extension Path {
             let nextPoint = CGPoint(x: CGFloat(indexUpper) * x,
                                     y: (CGFloat(dataPoints[indexUpper].upperValue - minValue) * -y) + rect.height)
             
-            if dataPoints[indexUpper].value != 0 {
+            if dataPoints[indexUpper].value != ignoreValue {
                 path.addCurve(to: nextPoint,
                               control1: CGPoint(x: previousPoint.x + (nextPoint.x - previousPoint.x) / 2,
                                                 y: previousPoint.y),
@@ -481,7 +486,7 @@ extension Path {
             let nextPoint = CGPoint(x: CGFloat(indexLower) * x,
                                     y: (CGFloat(dataPoints[indexLower].lowerValue - minValue) * -y) + rect.height)
             
-            if dataPoints[indexLower].value != 0 {
+            if dataPoints[indexLower].value != ignoreValue {
                 path.addCurve(to: nextPoint,
                               control1: CGPoint(x: previousPoint.x + (nextPoint.x - previousPoint.x) / 2,
                                                 y: previousPoint.y),
@@ -502,7 +507,8 @@ extension Path {
         rect: CGRect,
         dataPoints: [DP],
         minValue: Double,
-        range: Double
+        range: Double,
+        ignoreValue: Double
     ) -> Path {
         let x: CGFloat = rect.width / CGFloat(dataPoints.count - 1)
         let y: CGFloat = rect.height / CGFloat(range)
@@ -523,7 +529,7 @@ extension Path {
             let nextPointUpper = CGPoint(x: CGFloat(indexUpper) * x,
                                          y: (CGFloat(dataPoints[indexUpper].upperValue - minValue) * -y) + rect.height)
             
-            if dataPoints[indexUpper].value != 0 {
+            if dataPoints[indexUpper].value != ignoreValue {
                 path.addLine(to: nextStep)
                 path.addLine(to: nextPointUpper)
                 newPoint = nextPointUpper
@@ -538,7 +544,7 @@ extension Path {
             let nextPointLower = CGPoint(x: CGFloat(indexLower) * x,
                                          y: (CGFloat(dataPoints[indexLower].lowerValue - minValue) * -y) + rect.height)
             
-            if dataPoints[indexLower].value != 0 {
+            if dataPoints[indexLower].value != ignoreValue {
                 path.addLine(to: nextStep)
                 path.addLine(to: nextPointLower)
                 newPoint = nextPointLower

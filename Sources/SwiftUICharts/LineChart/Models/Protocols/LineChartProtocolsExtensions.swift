@@ -47,7 +47,7 @@ extension CTLineChartDataProtocol {
         lineType: LineType,
         minValue: Double,
         range: Double,
-        ignoreZero: Bool
+        ignoreValue: Double
     ) -> CGPoint {
         let path = Self.getPath(lineType: lineType,
                                 rect: rect,
@@ -55,7 +55,7 @@ extension CTLineChartDataProtocol {
                                 minValue: minValue,
                                 range: range,
                                 isFilled: false,
-                                ignoreZero: ignoreZero)
+                                ignoreValue: ignoreValue)
         return Self.locationOnPath(Self.getPercentageOfPath(path: path, touchLocation: touchLocation), path)
     }
 }
@@ -82,54 +82,15 @@ extension CTLineChartDataProtocol {
         minValue: Double,
         range: Double,
         isFilled: Bool,
-        ignoreZero: Bool
+        ignoreValue: Double
     ) -> Path {
         switch lineType {
         case .line:
-            switch ignoreZero {
-            case false:
-                return Path.straightLine(rect: rect,
-                                         dataPoints: dataPoints,
-                                         minValue: minValue,
-                                         range: range,
-                                         isFilled: isFilled)
-            case true:
-                return Path.straightLineIgnoreZero(rect: rect,
-                                                   dataPoints: dataPoints,
-                                                   minValue: minValue,
-                                                   range: range,
-                                                   isFilled: isFilled)
-            }
+            return ignoreValue == -Double.infinity ? Path.straightLine(rect: rect, dataPoints: dataPoints, minValue: minValue, range: range, isFilled: isFilled) : Path.straightLineIgnoreZero(rect: rect, dataPoints: dataPoints, minValue: minValue, range: range, isFilled: isFilled, ignoreValue: ignoreValue)
         case .curvedLine:
-            switch ignoreZero {
-            case false:
-                return Path.curvedLine(rect: rect,
-                                       dataPoints: dataPoints,
-                                       minValue: minValue,
-                                       range: range,
-                                       isFilled: isFilled)
-            case true:
-                return Path.curvedLineIgnoreZero(rect: rect,
-                                                 dataPoints: dataPoints,
-                                                 minValue: minValue,
-                                                 range: range,
-                                                 isFilled: isFilled)
-            }
+            return ignoreValue == -Double.infinity ? Path.curvedLine(rect: rect, dataPoints: dataPoints, minValue: minValue, range: range, isFilled: isFilled) : Path.curvedLineIgnoreZero(rect: rect, dataPoints: dataPoints, minValue: minValue, range: range, isFilled: isFilled, ignoreValue: ignoreValue)
         case .stepped:
-            switch ignoreZero {
-            case false:
-                return Path.steppedLine(rect: rect,
-                                       dataPoints: dataPoints,
-                                       minValue: minValue,
-                                       range: range,
-                                       isFilled: isFilled)
-            case true:
-                return Path.steppedLineIgnoreZero(rect: rect,
-                                                 dataPoints: dataPoints,
-                                                 minValue: minValue,
-                                                 range: range,
-                                                 isFilled: isFilled)
-            }
+            return ignoreValue == -Double.infinity ? Path.steppedLine(rect: rect, dataPoints: dataPoints, minValue: minValue, range: range, isFilled: isFilled) : Path.steppedLineIgnoreZero(rect: rect, dataPoints: dataPoints, minValue: minValue, range: range, isFilled: isFilled, ignoreValue: ignoreValue)
         }
     }
     
@@ -341,7 +302,7 @@ extension CTLineChartDataProtocol where Self.CTStyle.Mark == LineMarkerType, Sel
                                                         lineType: lineType,
                                                         minValue: self.minValue,
                                                         range: self.range,
-                                                        ignoreZero: dataSet.style.ignoreZero))
+                                                        ignoreValue: dataSet.style.ignoreValue))
             case .vertical(attachment: let attach, let colour, let style):
 
                 switch attach {
@@ -353,7 +314,7 @@ extension CTLineChartDataProtocol where Self.CTStyle.Mark == LineMarkerType, Sel
                                                              lineType: lineType,
                                                              minValue: self.minValue,
                                                              range: self.range,
-                                                             ignoreZero: dataSet.style.ignoreZero)
+                                                             ignoreValue: dataSet.style.ignoreValue)
 
                     Vertical(position: position)
                         .stroke(colour, style: style)
@@ -380,7 +341,7 @@ extension CTLineChartDataProtocol where Self.CTStyle.Mark == LineMarkerType, Sel
                                                              lineType: lineType,
                                                              minValue: self.minValue,
                                                              range: self.range,
-                                                             ignoreZero: dataSet.style.ignoreZero)
+                                                             ignoreValue: dataSet.style.ignoreValue)
 
                     MarkerFull(position: position)
                         .stroke(colour, style: style)
@@ -410,7 +371,7 @@ extension CTLineChartDataProtocol where Self.CTStyle.Mark == LineMarkerType, Sel
                                                              lineType: lineType,
                                                              minValue: self.minValue,
                                                              range: self.range,
-                                                             ignoreZero: dataSet.style.ignoreZero)
+                                                             ignoreValue: dataSet.style.ignoreValue)
 
                     MarkerBottomLeading(position: position)
                         .stroke(Color.primary, lineWidth: 2)
@@ -439,7 +400,7 @@ extension CTLineChartDataProtocol where Self.CTStyle.Mark == LineMarkerType, Sel
                                                              lineType: lineType,
                                                              minValue: self.minValue,
                                                              range: self.range,
-                                                             ignoreZero: dataSet.style.ignoreZero)
+                                                             ignoreValue: dataSet.style.ignoreValue)
 
                     MarkerBottomTrailing(position: position)
                         .stroke(colour, style: style)
@@ -468,7 +429,7 @@ extension CTLineChartDataProtocol where Self.CTStyle.Mark == LineMarkerType, Sel
                                                              lineType: lineType,
                                                              minValue: self.minValue,
                                                              range: self.range,
-                                                             ignoreZero: dataSet.style.ignoreZero)
+                                                             ignoreValue: dataSet.style.ignoreValue)
 
                     MarkerTopLeading(position: position)
                         .stroke(colour, style: style)
@@ -497,7 +458,7 @@ extension CTLineChartDataProtocol where Self.CTStyle.Mark == LineMarkerType, Sel
                                                              lineType: lineType,
                                                              minValue: self.minValue,
                                                              range: self.range,
-                                                             ignoreZero: dataSet.style.ignoreZero)
+                                                             ignoreValue: dataSet.style.ignoreValue)
 
                     MarkerTopTrailing(position: position)
                         .stroke(colour, style: style)

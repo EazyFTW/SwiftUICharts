@@ -391,38 +391,38 @@ internal struct PointsExtraLineView<ChartData>: View where ChartData: CTLineBarC
     internal var body: some View {
         if let extraLineData = chartData.extraLineData {
             Group {
-                switch extraLineData.style.pointStyle.pointType {
-                case .filled:
-                    ForEach(extraLineData.dataPoints.indices, id: \.self) { index in
-                        FilledDataPointExtraLineView(chartData: chartData,
-                                                     dataPoint: extraLineData.dataPoints[index],
-                                                     index: index)
-                    }
-                    
-                case .outline:
-                    ForEach(extraLineData.dataPoints.indices, id: \.self) { index in
-                        OutLineDataPointExtraLineView(chartData: chartData,
-                                                      dataPoint: extraLineData.dataPoints[index],
-                                                      index: index)
-                    }
-                    
-                case .filledOutLine:
-                    ForEach(extraLineData.dataPoints.indices, id: \.self) { index in
-                        FilledDataPointExtraLineView(chartData: chartData,
-                                                     dataPoint: extraLineData.dataPoints[index],
-                                                     index: index)
-                        .background(Point(value: extraLineData.dataPoints[index].value,
-                                          index: index,
-                                          minValue: extraLineData.minValue,
-                                          range: extraLineData.range,
-                                          datapointCount: extraLineData.dataPoints.count,
-                                          pointSize: extraLineData.style.pointStyle.pointSize,
-                                          ignoreZero: false,
-                                          pointStyle: extraLineData.style.pointStyle.pointShape)
-                            .foregroundColor(extraLineData.dataPoints[index].pointColour?.fill ?? extraLineData.style.pointStyle.fillColour)
-                        )
-                    }
-                }
+//                switch extraLineData.style.pointStyle.pointType {
+//                case .filled:
+//                    ForEach(extraLineData.dataPoints.indices, id: \.self) { index in
+//                        FilledDataPointExtraLineView(chartData: chartData,
+//                                                     dataPoint: extraLineData.dataPoints[index],
+//                                                     index: index)
+//                    }
+//                    
+//                case .outline:
+//                    ForEach(extraLineData.dataPoints.indices, id: \.self) { index in
+//                        OutLineDataPointExtraLineView(chartData: chartData,
+//                                                      dataPoint: extraLineData.dataPoints[index],
+//                                                      index: index)
+//                    }
+//                    
+//                case .filledOutLine:
+//                    ForEach(extraLineData.dataPoints.indices, id: \.self) { index in
+//                        FilledDataPointExtraLineView(chartData: chartData,
+//                                                     dataPoint: extraLineData.dataPoints[index],
+//                                                     index: index)
+//                        .background(Point(value: extraLineData.dataPoints[index].value,
+//                                          index: index,
+//                                          minValue: extraLineData.minValue,
+//                                          range: extraLineData.range,
+//                                          datapointCount: extraLineData.dataPoints.count,
+//                                          pointSize: extraLineData.style.pointStyle.pointSize,
+//                                          ignoreZero: false,
+//                                          pointStyle: extraLineData.style.pointStyle.pointShape)
+//                            .foregroundColor(extraLineData.dataPoints[index].pointColour?.fill ?? extraLineData.style.pointStyle.fillColour)
+//                        )
+//                    }
+//                }
             }
             .zIndex(1.0)
         } else {
@@ -460,7 +460,7 @@ internal struct FilledDataPointExtraLineView<ChartData>: View where ChartData: C
                       range: extraLineData.range,
                       datapointCount: extraLineData.dataPoints.count,
                       pointSize: extraLineData.style.pointStyle.pointSize,
-                      ignoreZero: false,
+                      ignoreValue: -Double.infinity,
                       pointStyle: extraLineData.style.pointStyle.pointShape)
                 .ifElse(extraLineData.style.animationType == .draw, if: {
                     $0
@@ -484,7 +484,7 @@ internal struct FilledDataPointExtraLineView<ChartData>: View where ChartData: C
                                range: extraLineData.range,
                                datapointCount: extraLineData.dataPoints.count,
                                pointSize: extraLineData.style.pointStyle.pointSize,
-                               ignoreZero: false,
+                               ignoreValue: -Double.infinity,
                                pointStyle: extraLineData.style.pointStyle.pointShape)
                 .ifElse(extraLineData.style.animationType == .draw, if: {
                     $0
@@ -545,7 +545,7 @@ internal struct OutLineDataPointExtraLineView<ChartData>: View where ChartData: 
                       range: extraLineData.range,
                       datapointCount: extraLineData.dataPoints.count,
                       pointSize: extraLineData.style.pointStyle.pointSize,
-                      ignoreZero: false,
+                      ignoreValue: -Double.infinity,
                       pointStyle: extraLineData.style.pointStyle.pointShape)
                 .ifElse(extraLineData.style.animationType == .draw, if: {
                     $0.trim(to: animationValue)
@@ -569,7 +569,7 @@ internal struct OutLineDataPointExtraLineView<ChartData>: View where ChartData: 
                                range: extraLineData.range,
                                datapointCount: extraLineData.dataPoints.count,
                                pointSize: extraLineData.style.pointStyle.pointSize,
-                               ignoreZero: false,
+                               ignoreValue: -Double.infinity,
                                pointStyle: extraLineData.style.pointStyle.pointShape)
                 .ifElse(extraLineData.style.animationType == .draw, if: {
                     $0.trim(to: animationValue)
@@ -612,7 +612,7 @@ internal struct PointBarSpcing: Shape {
     private let range: Double
     private let datapointCount: Int
     private let pointSize: CGFloat
-    private let ignoreZero: Bool
+    private let ignoreValue: Double
     private let pointStyle: PointShape
     
     internal init(
@@ -622,7 +622,7 @@ internal struct PointBarSpcing: Shape {
         range: Double,
         datapointCount: Int,
         pointSize: CGFloat,
-        ignoreZero: Bool,
+        ignoreValue: Double,
         pointStyle: PointShape
     ) {
         self.value = value
@@ -631,7 +631,7 @@ internal struct PointBarSpcing: Shape {
         self.range = range
         self.datapointCount = datapointCount
         self.pointSize = pointSize
-        self.ignoreZero = ignoreZero
+        self.ignoreValue = ignoreValue
         self.pointStyle = pointStyle
     }
     
@@ -645,7 +645,7 @@ internal struct PointBarSpcing: Shape {
         let pointX: CGFloat = (CGFloat(index) * x) + (x / 2) - offset
         let pointY: CGFloat = ((CGFloat(value - minValue) * -y) + rect.height) - offset
         let point: CGRect = CGRect(x: pointX, y: pointY, width: pointSize, height: pointSize)
-        if !ignoreZero {
+        if ignoreValue == -Double.infinity {
             pointSwitch(&path, point)
         } else {
             if value != 0 {

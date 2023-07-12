@@ -18,7 +18,7 @@ internal struct Point: Shape {
     private let range: Double
     private let datapointCount: Int
     private let pointSize: CGFloat
-    private let ignoreZero: Bool
+    private let ignoreValue: Double
     private let pointStyle: PointShape
     
     internal init(
@@ -28,7 +28,7 @@ internal struct Point: Shape {
         range: Double,
         datapointCount: Int,
         pointSize: CGFloat,
-        ignoreZero: Bool,
+        ignoreValue: Double,
         pointStyle: PointShape
     ) {
         self.value = value
@@ -37,7 +37,7 @@ internal struct Point: Shape {
         self.range = range
         self.datapointCount = datapointCount
         self.pointSize = pointSize
-        self.ignoreZero = ignoreZero
+        self.ignoreValue = ignoreValue
         self.pointStyle = pointStyle
     }
     
@@ -51,7 +51,7 @@ internal struct Point: Shape {
         let pointX: CGFloat = (CGFloat(index) * x) - offset
         let pointY: CGFloat = ((CGFloat(value - minValue) * -y) + rect.height) - offset
         let point: CGRect = CGRect(x: pointX, y: pointY, width: pointSize, height: pointSize)
-        if !ignoreZero {
+        if ignoreValue == -Double.infinity {
             pointSwitch(&path, point)
         } else {
             if value != 0 {

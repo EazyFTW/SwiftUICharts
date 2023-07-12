@@ -15,7 +15,7 @@ public struct LineStyle: CTLineStyle, Hashable {
     public var lineColour: ColourStyle
     public var lineType: LineType
     public var strokeStyle: Stroke
-    public var ignoreZero: Bool
+    public var ignoreValue: Double
     
     /// Style of the line.
     /// 
@@ -28,11 +28,11 @@ public struct LineStyle: CTLineStyle, Hashable {
         lineColour: ColourStyle = ColourStyle(colour: .red),
         lineType: LineType = .curvedLine,
         strokeStyle: Stroke = Stroke(),
-        ignoreZero: Bool = false
+        ignoreValue: Double = -Double.infinity
     ) {
         self.lineColour = lineColour
         self.lineType = lineType
         self.strokeStyle = strokeStyle
-        self.ignoreZero = ignoreZero
+        self.ignoreValue = ignoreValue
     }
 }

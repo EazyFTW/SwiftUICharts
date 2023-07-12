@@ -43,7 +43,7 @@ internal struct FilledTopLine<T>: ViewModifier where T: LineChartData {
                               isFilled: false,
                               minValue: self.minValue,
                               range: self.range,
-                              ignoreZero: chartData.dataSets.style.ignoreZero)
+                              ignoreValue: chartData.dataSets.style.ignoreValue)
                         .scale(y: animationValue, anchor: .bottom)
                         .stroke(colour, style: strokeStyle)
                         .animateOnAppear(disabled: chartData.disableAnimation, using: chartData.chartStyle.globalAnimation) {
@@ -62,7 +62,7 @@ internal struct FilledTopLine<T>: ViewModifier where T: LineChartData {
                               isFilled: false,
                               minValue: self.minValue,
                               range: self.range,
-                              ignoreZero: chartData.dataSets.style.ignoreZero)
+                              ignoreValue: chartData.dataSets.style.ignoreValue)
                         .scale(y: animationValue, anchor: .bottom)
                         .stroke(LinearGradient(gradient: Gradient(colors: colours),
                                                startPoint: startPoint,
@@ -85,7 +85,7 @@ internal struct FilledTopLine<T>: ViewModifier where T: LineChartData {
                               isFilled: false,
                               minValue: self.minValue,
                               range: self.range,
-                              ignoreZero: chartData.dataSets.style.ignoreZero)
+                              ignoreValue: chartData.dataSets.style.ignoreValue)
                         .scale(y: animationValue, anchor: .bottom)
                         .stroke(LinearGradient(gradient: Gradient(stops: stops),
                                                startPoint: startPoint,

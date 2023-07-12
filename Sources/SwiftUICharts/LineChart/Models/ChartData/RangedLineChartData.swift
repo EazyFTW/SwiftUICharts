@@ -160,7 +160,7 @@ public final class RangedLineChartData: CTLineChartDataProtocol, GetDataProtocol
         let ySection: CGFloat = chartSize.height / CGFloat(range)
         let index: Int = Int((touchLocation.x + (xSection / 2)) / xSection)
         if index >= 0 && index < dataSet.dataPoints.count {
-            if !dataSet.style.ignoreZero {
+            if dataSet.style.ignoreValue == -Double.infinity {
                 return CGPoint(x: CGFloat(index) * xSection,
                                y: (CGFloat(dataSet.dataPoints[index].value - minValue) * -ySection) + chartSize.height)
             } else {
@@ -177,7 +177,7 @@ public final class RangedLineChartData: CTLineChartDataProtocol, GetDataProtocol
         let xSection: CGFloat = chartSize.width / CGFloat(dataSets.dataPoints.count - 1)
         let index = Int((touchLocation.x + (xSection / 2)) / xSection)
         if index >= 0 && index < dataSets.dataPoints.count {
-            if !dataSets.style.ignoreZero {
+            if dataSets.style.ignoreValue == -Double.infinity {
                 dataSets.dataPoints[index].legendTag = dataSets.legendTitle
                 self.infoView.touchOverlayInfo = [dataSets.dataPoints[index]]
             } else {

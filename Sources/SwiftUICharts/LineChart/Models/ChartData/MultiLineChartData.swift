@@ -178,7 +178,7 @@ extension MultiLineChartData {
         let index: Int = Int((touchLocation.x + (xSection / 2)) / xSection)
         
         if index >= 0 && index < dataSet.dataPoints.count {
-            if !dataSet.style.ignoreZero {
+            if dataSet.style.ignoreValue == -Double.infinity {
                 return CGPoint(x: CGFloat(index) * xSection,
                                y: (CGFloat(dataSet.dataPoints[index].value - minValue) * -ySection) + chartSize.height)
             } else {
@@ -203,7 +203,7 @@ extension MultiLineChartData {
                     self.infoView.touchOverlayInfo.append(dp)
                 }
                 touchedDataPointPublisher.send(dataSets.dataSets[setIndex].dataPoints[index])
-                if !dataSets.dataSets[setIndex].style.ignoreZero {
+                if dataSets.dataSets[setIndex].style.ignoreValue == -Double.infinity {
                     dataSets.dataSets[setIndex].dataPoints[index].legendTag = dataSets.dataSets[setIndex].legendTitle
                     return dataSets.dataSets[setIndex].dataPoints[index]
                 } else {

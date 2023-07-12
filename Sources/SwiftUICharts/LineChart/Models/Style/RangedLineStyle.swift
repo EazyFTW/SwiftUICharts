@@ -15,7 +15,7 @@ public struct RangedLineStyle: CTRangedLineStyle, Hashable {
     public var fillColour: ColourStyle
     public var lineType: LineType
     public var strokeStyle: Stroke
-    public var ignoreZero: Bool
+    public var ignoreValue: Double
     
     // MARK: Initializer
     /// Initialize the styling for ranged line chart.
@@ -29,12 +29,12 @@ public struct RangedLineStyle: CTRangedLineStyle, Hashable {
                 fillColour: ColourStyle = ColourStyle(),
                 lineType: LineType = .curvedLine,
                 strokeStyle: Stroke = Stroke(),
-                ignoreZero: Bool = false
+                ignoreValue: Double = -Double.infinity
     ) {
         self.lineColour  = lineColour
         self.fillColour  = fillColour
         self.lineType    = lineType
         self.strokeStyle = strokeStyle
-        self.ignoreZero  = ignoreZero
+        self.ignoreValue  = ignoreValue
     }
 }

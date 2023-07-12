@@ -23,7 +23,7 @@ final class LineChartPathTests: XCTestCase {
                                                       lineType: .line,
                                                       minValue: chartData.minValue,
                                                       range: chartData.range,
-                                                      ignoreZero: false)
+                                                      ignoreValue: -Double.infinity)
         
         XCTAssertEqual(test.x, 25, accuracy: 0.1)
         XCTAssertEqual(test.y, 75, accuracy: 0.1)
