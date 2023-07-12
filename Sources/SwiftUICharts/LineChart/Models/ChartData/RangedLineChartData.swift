@@ -164,7 +164,7 @@ public final class RangedLineChartData: CTLineChartDataProtocol, GetDataProtocol
                 return CGPoint(x: CGFloat(index) * xSection,
                                y: (CGFloat(dataSet.dataPoints[index].value - minValue) * -ySection) + chartSize.height)
             } else {
-                if dataSet.dataPoints[index].value != dataSet.dataPoints[index].value {
+                if dataSet.dataPoints[index].value != dataSet.style.ignoreValue {
                     return CGPoint(x: CGFloat(index) * xSection,
                                    y: (CGFloat(dataSet.dataPoints[index].value - minValue) * -ySection) + chartSize.height)
                 }

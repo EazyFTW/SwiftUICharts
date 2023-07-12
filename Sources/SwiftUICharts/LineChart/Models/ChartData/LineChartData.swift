@@ -67,7 +67,7 @@ public final class LineChartData: CTLineChartDataProtocol, GetDataProtocol, Publ
         self.legends = [LegendData]()
         self.viewData = ChartViewData()
         self.chartType = (chartType: .line, dataSetType: .single)
-        self.setupLegends()
+//        self.setupLegends()
     }
     
     // MARK: Labels
@@ -196,9 +196,7 @@ extension LineChartData {
                 dp.legendTag = data.legendTitle
                 self.infoView.touchOverlayInfo.append(dp)
             }
-            if dataSets.dataPoints[index].value != dataSets.style.ignoreValue {
-                touchedDataPointPublisher.send(dataSets.dataPoints[index])
-            }
+            touchedDataPointPublisher.send(dataSets.dataPoints[index])
         }
     }
 }
