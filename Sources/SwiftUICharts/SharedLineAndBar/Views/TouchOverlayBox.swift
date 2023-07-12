@@ -58,7 +58,7 @@ internal struct TouchOverlayBox<T: CTChartData>: View {
         .padding(.all, 8)
         .background(
             GeometryReader { geo in
-                if chartData.infoView.isTouchCurrent {
+                if chartData.infoView.isTouchCurrent && chartData.infoView.touchOverlayInfo.count > 0 {
                     RoundedRectangle(cornerRadius: 5.0, style: .continuous)
                         .fill(chartData.chartStyle.infoBoxBackgroundColour)
                         .overlay(
