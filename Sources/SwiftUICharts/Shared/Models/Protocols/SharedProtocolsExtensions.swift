@@ -282,7 +282,7 @@ extension CTSingleDataSetProtocol where Self.DataPoint: CTStandardDataPointProto
         } else {
             return self.dataPoints
                 .map(\.value)
-                .filter({ $0 != 0 })
+                .filter({ $0 != self.style.ignoreValue })
                 .min() ?? 0
         }
     }
@@ -298,7 +298,7 @@ extension CTMultiDataSetProtocol where Self.DataSet: CTLineChartDataSet,
                     .min()
             } else {
                 return dataSet.dataPoints
-                    .filter { $0.value != 0 }
+                    .filter { $0.value != dataSet.style.ignoreValue }
                     .map(\.value)
                     .min()
             }
