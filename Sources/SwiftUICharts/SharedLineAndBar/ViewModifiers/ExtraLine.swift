@@ -648,7 +648,7 @@ internal struct PointBarSpcing: Shape {
         if ignoreValue == -Double.infinity {
             pointSwitch(&path, point)
         } else {
-            if value != 0 {
+            if value != ignoreValue {
                 pointSwitch(&path, point)
             }
         }

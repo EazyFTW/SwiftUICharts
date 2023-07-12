@@ -164,7 +164,7 @@ public final class RangedLineChartData: CTLineChartDataProtocol, GetDataProtocol
                 return CGPoint(x: CGFloat(index) * xSection,
                                y: (CGFloat(dataSet.dataPoints[index].value - minValue) * -ySection) + chartSize.height)
             } else {
-                if dataSet.dataPoints[index].value != 0 {
+                if dataSet.dataPoints[index].value != dataSet.dataPoints[index].value {
                     return CGPoint(x: CGFloat(index) * xSection,
                                    y: (CGFloat(dataSet.dataPoints[index].value - minValue) * -ySection) + chartSize.height)
                 }
@@ -181,7 +181,7 @@ public final class RangedLineChartData: CTLineChartDataProtocol, GetDataProtocol
                 dataSets.dataPoints[index].legendTag = dataSets.legendTitle
                 self.infoView.touchOverlayInfo = [dataSets.dataPoints[index]]
             } else {
-                if dataSets.dataPoints[index].value != 0 {
+                if dataSets.dataPoints[index].value != dataSets.dataPoints[index].value {
                     dataSets.dataPoints[index].legendTag = dataSets.legendTitle
                     self.infoView.touchOverlayInfo = [dataSets.dataPoints[index]]
                 } else {

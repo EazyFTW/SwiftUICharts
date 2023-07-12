@@ -182,7 +182,7 @@ extension MultiLineChartData {
                 return CGPoint(x: CGFloat(index) * xSection,
                                y: (CGFloat(dataSet.dataPoints[index].value - minValue) * -ySection) + chartSize.height)
             } else {
-                if dataSet.dataPoints[index].value != 0 {
+                if dataSet.dataPoints[index].value != dataSet.style.ignoreValue {
                     return CGPoint(x: CGFloat(index) * xSection,
                                    y: (CGFloat(dataSet.dataPoints[index].value - minValue) * -ySection) + chartSize.height)
                 }
@@ -207,7 +207,7 @@ extension MultiLineChartData {
                     dataSets.dataSets[setIndex].dataPoints[index].legendTag = dataSets.dataSets[setIndex].legendTitle
                     return dataSets.dataSets[setIndex].dataPoints[index]
                 } else {
-                    if dataSets.dataSets[setIndex].dataPoints[index].value != 0 {
+                    if dataSets.dataSets[setIndex].dataPoints[index].value != dataSets.dataSets[setIndex].style.ignoreValue {
                         dataSets.dataSets[setIndex].dataPoints[index].legendTag = dataSets.dataSets[setIndex].legendTitle
                         return dataSets.dataSets[setIndex].dataPoints[index]
                     } else {
