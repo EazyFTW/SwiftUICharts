@@ -137,7 +137,9 @@ public final class BarChartData: CTBarChartDataProtocol, GetDataProtocol, Publis
         let index: Int = Int((touchLocation.x) / xSection)
         if index >= 0 && index < dataSets.dataPoints.count {
             dataSets.dataPoints[index].legendTag = dataSets.legendTitle
-            self.infoView.touchOverlayInfo = [dataSets.dataPoints[index]]
+            if dataSets.dataPoints[index].value != barStyle.ignoreValue {
+                self.infoView.touchOverlayInfo = [dataSets.dataPoints[index]]
+            }
             if let data = self.extraLineData,
                let point = data.getDataPoint(touchLocation: touchLocation, chartSize: chartSize) {
                 var dp = BarChartDataPoint(value: point.value, description: point.pointDescription)
